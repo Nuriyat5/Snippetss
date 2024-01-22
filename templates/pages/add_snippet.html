@@ -14,14 +14,16 @@
 
     <div class="row">
         <div class="col">
-            <form action="{% url "create-snippet" %}" method="post">
+            <form action="" method="post">
                 {% csrf_token %}
-                <table>
-                    {{ form }}
-                </table>
-                <input type="submit" value="Submit"/>
-             </form>
-             
+                {{ form.as_p }}
+
+                <div class="form-group row">
+                    <div class="col-4">
+                        <input type="submit" class="btn btn-primary btn-block" value="Сохранить">
+                    </div>
+                </div>
+             </form>        
 
         </div>
     </div>
