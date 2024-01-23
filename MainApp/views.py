@@ -50,6 +50,16 @@ def snippet_detail(request, snippet_id):
         return render(request, 'pages/snippet_detail.html', context)
 
 
+def snippet_delete(request, snippet_id):
+    try:
+        snippet = Snippet.objects.get(id=snippet_id) 
+    except ObjectDoesNotExist:
+        return HttpResponseNotFound(f'Snippet with id={snippet_id} not found')  
+    snippet.delete()
+    return redirect('snippets-list')
+
+
+
 # def create_snippet(request):
 #     if request.method == "POST":
 #         form = SnippetForm(request.POST)
