@@ -49,6 +49,7 @@ def snippets_page(request):
     context = { 
         'pagename': 'Просмотр сниппетов',
         "snippets": snippets,
+        "amount": snippets.count(),
         }
     return render(request, 'pages/view_snippets.html', context)
 
