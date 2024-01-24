@@ -13,6 +13,16 @@ def index_page(request):
 
 
 @login_required(login_url='login')
+def my_snippets(request):
+    snippets = Snippet.objects.filter(user=request.user)
+    context = { 
+        'pagename': 'Мои сниппеты',
+        "snippets": snippets,
+        }
+    return render(request, 'pages/view_snippets.html', context)
+
+
+@login_required(login_url='login')
 def add_snippet_page(request):
     # Если пришел запрос с методом GET, вернем чистую форму для заполнения
     if request.method == "GET":
