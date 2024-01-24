@@ -4,6 +4,7 @@ from MainApp.forms import SnippetForm
 from MainApp.models import Snippet
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib import auth
+from django.contrib.auth.decorators import login_required
 
 
 def index_page(request):
@@ -11,6 +12,7 @@ def index_page(request):
     return render(request, 'pages/index.html', context)
 
 
+@login_required(login_url='login')
 def add_snippet_page(request):
     # Если пришел запрос с методом GET, вернем чистую форму для заполнения
     if request.method == "GET":
@@ -90,6 +92,12 @@ def snippet_delete(request, snippet_id):
 
 
 def login(request):
+    if request.method == "GET":
+        context = {
+                'pagename': 'PythonBin',
+                'errors': ['authorization is necessary']
+                }
+        return render(request, 'pages/index.html', context)
     if request.method == 'POST':
         username = request.POST.get("username")
         password = request.POST.get("password")
@@ -97,8 +105,11 @@ def login(request):
         if user is not None:
             auth.login(request, user)
         else:
-            # Return error message
-            pass
+            context = {
+                'pagename': 'PythonBin',
+                'errors': ['wrong username or password']
+                }
+            return render(request, 'pages/index.html', context)
     return redirect('home')
 
 
@@ -106,11 +117,3 @@ def logout(request):
     auth.logout(request)
     return redirect('home')
 
-
-# def create_snippet(request):
-#     if request.method == "POST":
-#         form = SnippetForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect("snippets-list")
-#         return render(request,'add_snippet.html', {'form': form})
