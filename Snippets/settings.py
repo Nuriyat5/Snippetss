@@ -35,7 +35,7 @@ MESSAGE_TAGS = {
  }
 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '.pythonanywhere.com']
 
 
 # Application definition
