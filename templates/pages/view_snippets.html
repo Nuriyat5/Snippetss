@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 
+{% load my_tags %}
 {% block content %}
-
+6
 <!-- Begin page content -->
 
 <div class="container">
@@ -45,7 +46,7 @@
                                 {% endif %}                           
                                 </td>
                             <td>{{ snippet.creation_date | date:'d-m-Y H:i'  }}</td>
-                            <td>{{ snippet.user.username }} </td>
+                            <td>{{ snippet.user.username | is_empty:"Аноним"}} </td>
                             <td> {% if snippet.public %}
                                     Публичный
                                  {% else %}
