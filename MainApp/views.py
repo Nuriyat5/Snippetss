@@ -5,7 +5,6 @@ from MainApp.models import Snippet
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 
 
 def index_page(request):
@@ -19,6 +18,7 @@ def my_snippets(request):
     context = { 
         'pagename': 'Мои сниппеты',
         "snippets": snippets,
+        "amount": snippets.count(),
         }
     return render(request, 'pages/view_snippets.html', context)
 
