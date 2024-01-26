@@ -5,6 +5,7 @@ from MainApp.models import Snippet
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 
 
 def index_page(request):
@@ -151,7 +152,7 @@ def logout(request):
     auth.logout(request)
     return redirect('home')
 
-
+@login_required
 def comment_add(request):
     if request.method == "POST":
         comment_form = CommentForm(request.POST)
@@ -165,5 +166,3 @@ def comment_add(request):
 
         return redirect(f'/snippet/{snippet_id}')
     raise Http404
-
-#comm
